@@ -1,4 +1,4 @@
-<h1 align="center">Hi 👋, I'm Sudhanshu Bhartiya</h1>
+<h1 align="center">Hi 👋, I'm Sudhanshu</h1>
 <h3 align="center">A passionate developer from India, with an interest in... literally everything.</h3>
 
 - 🌱 I’m currently learning **LangChain, AI/ML**
