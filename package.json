@@ -1,0 +1,20 @@
+{
+  "name": "retro-readme",
+  "version": "1.0.0",
+  "description": "Generates a pixel-perfect retro-OS GitHub profile README as SVG",
+  "main": "index.js",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "fonts": "node scripts/fetch-fonts.mjs",
+    "preview": "node scripts/preview.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "fontkit": "^2.0.4",
+    "subset-font": "^2.5.0"
+  },
+  "private": true
+}
