@@ -1,0 +1,94 @@
+<svg viewBox="0 0 840 320" xmlns="http://www.w3.org/2000/svg" font-family="'Courier New', monospace">
+  <defs>
+    <linearGradient id="tbar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#08207a"/>
+      <stop offset="1" stop-color="#3f8ce8"/>
+    </linearGradient>
+    <linearGradient id="startbtn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#c0c0c0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Desktop -->
+  <rect x="0" y="0" width="840" height="320" fill="#008080"/>
+
+  <!-- Window drop shadow -->
+  <rect x="30" y="30" width="792" height="272" fill="#003838" opacity="0.45"/>
+
+  <!-- Window face + raised bevel -->
+  <rect x="24" y="24" width="792" height="272" fill="#c0c0c0"/>
+  <rect x="24" y="24" width="792" height="3" fill="#ffffff"/>
+  <rect x="24" y="24" width="3" height="272" fill="#ffffff"/>
+  <rect x="27" y="27" width="786" height="2" fill="#dfdfdf"/>
+  <rect x="27" y="27" width="2" height="266" fill="#dfdfdf"/>
+  <rect x="24" y="293" width="792" height="3" fill="#000000"/>
+  <rect x="813" y="24" width="3" height="272" fill="#000000"/>
+  <rect x="27" y="291" width="786" height="2" fill="#808080"/>
+  <rect x="811" y="27" width="2" height="266" fill="#808080"/>
+
+  <!-- Title bar -->
+  <rect x="30" y="30" width="780" height="30" fill="url(#tbar)"/>
+  <!-- little monitor icon -->
+  <rect x="40" y="37" width="20" height="15" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
+  <rect x="43" y="39" width="14" height="8" fill="#008080"/>
+  <rect x="47" y="53" width="6" height="3" fill="#000"/>
+  <text x="70" y="51" fill="#ffffff" font-size="15" font-weight="bold">MS-DOS Prompt  —  C:\Users\sudhanshu</text>
+
+  <!-- window buttons -->
+  <g>
+    <rect x="724" y="35" width="22" height="20" fill="#c0c0c0"/>
+    <rect x="724" y="35" width="22" height="2" fill="#fff"/><rect x="724" y="35" width="2" height="20" fill="#fff"/>
+    <rect x="724" y="53" width="22" height="2" fill="#000"/><rect x="744" y="35" width="2" height="20" fill="#000"/>
+    <rect x="729" y="50" width="10" height="2" fill="#000"/>
+  </g>
+  <g>
+    <rect x="750" y="35" width="22" height="20" fill="#c0c0c0"/>
+    <rect x="750" y="35" width="22" height="2" fill="#fff"/><rect x="750" y="35" width="2" height="20" fill="#fff"/>
+    <rect x="750" y="53" width="22" height="2" fill="#000"/><rect x="770" y="35" width="2" height="20" fill="#000"/>
+    <rect x="755" y="39" width="12" height="11" fill="none" stroke="#000" stroke-width="2"/>
+  </g>
+  <g>
+    <rect x="776" y="35" width="24" height="20" fill="#c8102e"/>
+    <rect x="776" y="35" width="24" height="2" fill="#ff6b6b"/><rect x="776" y="35" width="2" height="20" fill="#ff6b6b"/>
+    <rect x="776" y="53" width="24" height="2" fill="#600"/><rect x="798" y="35" width="2" height="20" fill="#600"/>
+    <path d="M783 40 L793 50 M793 40 L783 50" stroke="#fff" stroke-width="2"/>
+  </g>
+
+  <!-- menu bar -->
+  <text x="40" y="76" fill="#000" font-size="13" font-family="Tahoma, Verdana, sans-serif"><tspan font-weight="bold" text-decoration="underline">F</tspan>ile   <tspan font-weight="bold">E</tspan>dit   <tspan font-weight="bold">V</tspan>iew   <tspan font-weight="bold">H</tspan>elp</text>
+
+  <!-- Terminal sunken area -->
+  <rect x="36" y="86" width="768" height="198" fill="#000000"/>
+  <rect x="36" y="86" width="768" height="2" fill="#808080"/>
+  <rect x="36" y="86" width="2" height="198" fill="#808080"/>
+  <rect x="36" y="282" width="768" height="2" fill="#ffffff"/>
+  <rect x="802" y="86" width="2" height="198" fill="#ffffff"/>
+
+  <!-- boot log -->
+  <g font-size="15">
+    <g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="0.2s" dur="0.25s" fill="freeze"/>
+      <text x="52" y="112" fill="#c0c0c0">Microsoft(R) Windows 95   [Version 4.00.950]</text></g>
+    <g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="0.9s" dur="0.25s" fill="freeze"/>
+      <text x="52" y="138" fill="#ffffff">C:\&gt; run sudhanshu.exe</text></g>
+    <g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="1.6s" dur="0.25s" fill="freeze"/>
+      <text x="52" y="166" fill="#d0d0d0">  &gt; Full-Stack Developer  . . . . . . . .</text>
+      <text x="640" y="166" fill="#22ff88">[ OK ]</text></g>
+    <g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="2.3s" dur="0.25s" fill="freeze"/>
+      <text x="52" y="192" fill="#d0d0d0">  &gt; DSA Enthusiast  . . . . . . . . . . .</text>
+      <text x="640" y="192" fill="#22ff88">[ OK ]</text></g>
+    <g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="3.0s" dur="0.25s" fill="freeze"/>
+      <text x="52" y="218" fill="#d0d0d0">  &gt; Music Producer (@synthxx) . . . . . .</text>
+      <text x="640" y="218" fill="#22ff88">[ OK ]</text></g>
+    <g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="3.7s" dur="0.25s" fill="freeze"/>
+      <text x="52" y="244" fill="#d0d0d0">  &gt; AI/ML Explorer  . . . . . . . . . . .</text>
+      <text x="640" y="244" fill="#22ff88">[ OK ]</text></g>
+    <g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="4.4s" dur="0.25s" fill="freeze"/>
+      <text x="52" y="272" fill="#ffff66">Ready. Hi, I'm Sudhanshu :)  Build it, break it, learn from it.</text></g>
+  </g>
+
+  <!-- blinking cursor -->
+  <rect x="712" y="259" width="12" height="17" fill="#ffff66" opacity="0">
+    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.01;0.5;0.51;1" dur="1s" begin="5s" repeatCount="indefinite"/>
+  </rect>
+</svg>
