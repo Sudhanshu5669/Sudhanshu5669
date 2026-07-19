@@ -1,0 +1,69 @@
+<svg viewBox="0 0 840 56" xmlns="http://www.w3.org/2000/svg" font-family="Tahoma, Verdana, sans-serif">
+  <!-- bar -->
+  <rect x="0" y="6" width="840" height="44" fill="#c0c0c0"/>
+  <rect x="0" y="6" width="840" height="2" fill="#ffffff"/>
+  <rect x="0" y="6" width="2" height="44" fill="#ffffff"/>
+  <rect x="0" y="48" width="840" height="2" fill="#808080"/>
+
+  <!-- START button (raised) -->
+  <g>
+    <rect x="10" y="12" width="112" height="32" fill="#c0c0c0"/>
+    <rect x="10" y="12" width="112" height="2" fill="#ffffff"/><rect x="10" y="12" width="2" height="32" fill="#ffffff"/>
+    <rect x="10" y="42" width="112" height="2" fill="#000000"/><rect x="120" y="12" width="2" height="32" fill="#000000"/>
+    <!-- flag -->
+    <g transform="translate(22,20) skewY(-8)">
+      <rect x="0" y="0" width="8" height="8" fill="#e81123"/>
+      <rect x="9" y="0" width="8" height="8" fill="#22b14c"/>
+      <rect x="0" y="9" width="8" height="8" fill="#0078d7"/>
+      <rect x="9" y="9" width="8" height="8" fill="#ffce00"/>
+    </g>
+    <text x="50" y="34" font-size="17" font-weight="bold" font-style="italic" fill="#000">Start</text>
+  </g>
+
+  <!-- task button: projects (sunken/active) -->
+  <g>
+    <rect x="134" y="12" width="156" height="32" fill="#c0c0c0"/>
+    <rect x="134" y="12" width="156" height="2" fill="#808080"/><rect x="134" y="12" width="2" height="32" fill="#808080"/>
+    <rect x="134" y="42" width="156" height="2" fill="#ffffff"/><rect x="288" y="12" width="2" height="32" fill="#ffffff"/>
+    <!-- folder icon -->
+    <path d="M146 22 h9 l3 3 h10 v11 h-22 z" fill="#ffd54a" stroke="#000" stroke-width="1"/>
+    <text x="176" y="33" font-size="14" font-weight="bold" fill="#000">projects.exe</text>
+  </g>
+
+  <!-- task button: synthxx (raised, flashing) -->
+  <g>
+    <rect x="298" y="12" width="150" height="32" fill="#c0c0c0"/>
+    <rect x="298" y="12" width="150" height="2" fill="#ffffff"/><rect x="298" y="12" width="2" height="32" fill="#ffffff"/>
+    <rect x="298" y="42" width="150" height="2" fill="#000000"/><rect x="446" y="12" width="2" height="32" fill="#000000"/>
+    <text x="312" y="33" font-size="16" fill="#7a1fa2">&#9835;</text>
+    <text x="330" y="33" font-size="14" fill="#000">synthxx.fm</text>
+    <rect x="298" y="12" width="150" height="32" fill="#000080" opacity="0">
+      <animate attributeName="opacity" values="0;0;0.15;0" keyTimes="0;0.7;0.85;1" dur="2.5s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- system tray (sunken) -->
+  <g>
+    <rect x="686" y="12" width="144" height="32" fill="#c0c0c0"/>
+    <rect x="686" y="12" width="144" height="2" fill="#808080"/><rect x="686" y="12" width="2" height="32" fill="#808080"/>
+    <rect x="686" y="42" width="144" height="2" fill="#ffffff"/><rect x="828" y="12" width="2" height="32" fill="#ffffff"/>
+    <!-- envelope (blinking notification) -->
+    <g>
+      <rect x="698" y="21" width="18" height="13" fill="#ffffff" stroke="#000" stroke-width="1"/>
+      <path d="M698 21 L707 29 L716 21" fill="none" stroke="#000" stroke-width="1"/>
+      <animate attributeName="opacity" values="1;1;0.25;1" dur="1.4s" repeatCount="indefinite"/>
+    </g>
+    <!-- speaker -->
+    <g fill="#000">
+      <path d="M728 24 h4 l5 -4 v14 l-5 -4 h-4 z"/>
+      <path d="M740 24 q4 4 0 10" fill="none" stroke="#000" stroke-width="1.5"/>
+    </g>
+    <!-- clock -->
+    <text x="768" y="33" font-size="15" fill="#000" font-family="'Courier New', monospace">12</text>
+    <text x="784" y="33" font-size="15" fill="#000" font-family="'Courier New', monospace">
+      :<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1s" repeatCount="indefinite"/>
+    </text>
+    <text x="790" y="33" font-size="15" fill="#000" font-family="'Courier New', monospace">34</text>
+    <text x="808" y="33" font-size="10" fill="#000">AM</text>
+  </g>
+</svg>
