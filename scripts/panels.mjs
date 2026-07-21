@@ -12,11 +12,12 @@ import {
   meterRow,
   wrap,
   richText,
+  truncate,
   TITLEBAR_H,
   WINBAR_H,
 } from "./components.mjs";
 import { CONFIG } from "./config.mjs";
-import { compact, overallGrade, rank } from "./data.mjs";
+import { ago, compact, overallGrade, rank } from "./data.mjs";
 
 /* ---------------------------------------------------------------- hero panel */
 
@@ -201,10 +202,12 @@ export function badgeStrip(doc, { x, y }, data) {
         size,
         fill: fg,
         anchor: "middle",
+        cls: label === "STATUS" ? "pulse" : undefined,
       }),
     );
     bx += total + 8;
   }
+  doc.extraCss += `.pulse{animation:pulse 1.8s ease-in-out infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}`;
   return STRIP_H;
 }
 
@@ -688,6 +691,276 @@ export function notify(doc, { x, y, w, h }, data) {
       y: midline("vt", 14, iy, 50),
       size: 14,
       fill: C.muted2,
+      anchor: "end",
+    }),
+  );
+}
+
+/* ---------------------------------------------------- contribution heatmap */
+
+const CELL = 14;
+const CELL_GAP = 3;
+const CELL_STEP = CELL + CELL_GAP;
+const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+// 0 → inset well, then a cream→teal ramp matching the palette.
+const HEAT = [C.inset, "#b9c79c", "#87a983", "#4f8265", "#2f5449"];
+
+/** 53 empty weeks ending today, so the grid renders even without API data. */
+function emptyWeeks(now) {
+  const weeks = [];
+  for (let i = 52; i >= 0; i--) {
+    const start = new Date(now.getTime() - i * 7 * 86_400_000);
+    weeks.push({ start: start.toISOString().slice(0, 10), days: [0, 0, 0, 0, 0, 0, 0] });
+  }
+  return weeks;
+}
+
+/** Longest and current run of non-zero days. */
+function streaks(weeks) {
+  const days = weeks.flatMap((w) => w.days);
+  let best = 0;
+  let run = 0;
+  for (const d of days) {
+    run = d > 0 ? run + 1 : 0;
+    if (run > best) best = run;
+  }
+  // Current streak may still be alive: ignore today if it has no commits yet.
+  let cur = 0;
+  for (let i = days.length - 1; i >= 0; i--) {
+    if (days[i] > 0) cur++;
+    else if (i === days.length - 1) continue;
+    else break;
+  }
+  return { cur, best };
+}
+
+export function contribHeight() {
+  return TITLEBAR_H + 12 + 20 + 7 * CELL_STEP - CELL_GAP + 10 + 20 + 12;
+}
+
+export function contributions(doc, { x, y, w, h }, data) {
+  const cal = data.github.calendar;
+  const box = panel(doc, {
+    x,
+    y,
+    w,
+    h,
+    title: cal ? `CONTRIBUTIONS · ${cal.total} IN THE LAST YEAR` : "CONTRIBUTIONS",
+  });
+  const cx = box.cx + 14;
+  const cw = box.cw - 28;
+  let cy = box.cy + 12;
+
+  const weeks = (cal?.weeks?.length ? cal.weeks : emptyWeeks(data.builtAt)).slice(
+    -Math.floor((cw + CELL_GAP) / CELL_STEP),
+  );
+  const gridW = weeks.length * CELL_STEP - CELL_GAP;
+  const gx = cx + Math.floor((cw - gridW) / 2);
+
+  // Month labels along the top, at each month boundary.
+  let lastMonth = -1;
+  let lastLabelX = -Infinity;
+  const monthBase = topline("vt", 14, cy);
+  weeks.forEach((wk, i) => {
+    if (!wk.start) return;
+    const m = new Date(wk.start).getMonth();
+    if (m === lastMonth) return;
+    lastMonth = m;
+    const lx = gx + i * CELL_STEP;
+    if (lx - lastLabelX < 44 || lx + 34 > gx + gridW) return;
+    doc.add(doc.text("vt", MONTHS[m], { x: lx, y: monthBase, size: 14, fill: C.muted }));
+    lastLabelX = lx;
+  });
+  cy += 20;
+
+  // The pixel grid itself.
+  const max = Math.max(1, ...weeks.flatMap((wk) => wk.days));
+  weeks.forEach((wk, i) => {
+    wk.days.forEach((count, j) => {
+      const level =
+        count === 0 ? 0 : count >= max * 0.75 ? 4 : count >= max * 0.5 ? 3 : count >= max * 0.25 ? 2 : 1;
+      doc.add(rect(gx + i * CELL_STEP, cy + j * CELL_STEP, CELL, CELL, HEAT[level]));
+    });
+  });
+  cy += 7 * CELL_STEP - CELL_GAP + 10;
+
+  // Footer: streaks on the left, LESS→MORE legend on the right.
+  const footBase = midline("vt", 16, cy, 20);
+  const { cur, best } = cal ? streaks(weeks) : { cur: 0, best: 0 };
+  const footText = cal
+    ? `STREAK ${cur} DAY${cur === 1 ? "" : "S"} · BEST ${best} DAYS`
+    : "SYNC PENDING — LIVE GRID APPEARS AFTER THE FIRST CI BUILD";
+  doc.add(doc.emoji("⚡", { x: gx, y: footBase, size: 13 }));
+  doc.add(doc.text("vt", footText, { x: gx + 20, y: footBase, size: 16, fill: C.inkSoft }));
+
+  let lx = gx + gridW - 5 * CELL_STEP - measure("px6", "LESS", 11) - measure("px6", "MORE", 11) - 16;
+  doc.add(doc.text("px6", "LESS", { x: lx, y: midline("px6", 11, cy, 20), size: 11, fill: C.muted }));
+  lx += measure("px6", "LESS", 11) + 8;
+  HEAT.forEach((color, i) => {
+    doc.add(rect(lx + i * CELL_STEP, cy + (20 - CELL) / 2, CELL, CELL, color));
+  });
+  lx += 5 * CELL_STEP + 8 - CELL_GAP;
+  doc.add(doc.text("px6", "MORE", { x: lx, y: midline("px6", 11, cy, 20), size: 11, fill: C.muted }));
+}
+
+/* --------------------------------------------------------- featured projects */
+
+export const PROJ_HEAD_H = 30;
+
+export function projectsHeader(doc, { x, y, w }) {
+  doc.add(bevel(x, y, w, PROJ_HEAD_H, { raised: true, fill: C.titlebar }));
+  doc.add(doc.emoji("📌", { x: x + 12, y: midline("px6", 13, y, PROJ_HEAD_H) + 1, size: 13 }));
+  doc.add(
+    doc.text("px6", "FEATURED PROJECTS", {
+      x: x + 32,
+      y: midline("px6", 13, y, PROJ_HEAD_H),
+      size: 13,
+      fill: C.titlebarText,
+      ls: 1,
+    }),
+    doc.text("vt", "▸ click a row to open it", {
+      x: x + w - 12,
+      y: midline("vt", 16, y, PROJ_HEAD_H),
+      size: 16,
+      fill: C.heroSub,
+      anchor: "end",
+    }),
+  );
+}
+
+export const PROJ_ROW_H = 52;
+
+export function projectRow(doc, { x, y, w }, repo, now) {
+  doc.add(bevel(x, y, w, PROJ_ROW_H, { raised: true, fill: C.face }));
+  doc.add(doc.emoji("📦", { x: x + 14, y: midline("px7", 20, y, PROJ_ROW_H) + 5, size: 20 }));
+
+  const meta = [repo.language, `★ ${compact(repo.stars)}`, ago(repo.pushedAt, now)]
+    .filter(Boolean)
+    .join(" · ");
+  const metaW = measure("vt", meta, 16);
+  doc.add(
+    doc.text("vt", meta, {
+      x: x + w - 34,
+      y: midline("vt", 16, y, PROJ_ROW_H),
+      size: 16,
+      fill: C.muted,
+      anchor: "end",
+    }),
+    doc.text("px6", "›", {
+      x: x + w - 14,
+      y: midline("px6", 14, y, PROJ_ROW_H),
+      size: 14,
+      fill: C.muted2,
+      anchor: "end",
+    }),
+  );
+
+  const tx = x + 46;
+  const maxW = x + w - 34 - metaW - 16 - tx;
+  doc.add(
+    doc.text("px7", truncate("px7", repo.name, 14, maxW), {
+      x: tx,
+      y: topline("px7", 14, y + 8),
+      size: 14,
+      fill: C.ink,
+    }),
+    doc.text("vt", truncate("vt", repo.description || "// no description yet", 15, maxW), {
+      x: tx,
+      y: topline("vt", 15, y + 28),
+      size: 15,
+      fill: C.muted,
+    }),
+  );
+}
+
+/* -------------------------------------------------------- SYNTHXX.AMP player */
+
+export const WINAMP_H = 136;
+
+export function winamp(doc, { x, y, w, h }) {
+  const m = CONFIG.music;
+  const inner = windowFrame(doc, { x, y, w, h, title: m.app, buttons: ["_", "□", "×"], barH: 22 });
+  const pad = 10;
+  const px = inner.cx + pad;
+  const py = inner.cy + pad;
+  const screenH = inner.ch - pad * 2 - 8 - 24;
+  const screenW = Math.round(inner.cw * 0.55);
+
+  /* --- track screen with scrolling marquee ------------------------------ */
+  well(doc, { x: px, y: py, w: screenW, h: screenH, fill: C.heroShadow });
+  doc.add(doc.text("px6", m.status, { x: px + 12, y: topline("px6", 11, py + 9), size: 11, fill: C.heroSub }));
+
+  const tSize = 20;
+  const tw = measure("vt", m.track, tSize);
+  doc.add(`<clipPath id="scr"><rect x="${px + 2}" y="${py + 2}" width="${screenW - 4}" height="${screenH - 4}"/></clipPath>`);
+  doc.add(
+    `<g clip-path="url(#scr)"><g class="mq">` +
+      doc.text("vt", m.track, { x: 0, y: topline("vt", tSize, py + 27), size: tSize, fill: C.heroTerm }) +
+      `</g></g>`,
+  );
+  const period = Math.max(8, Math.round((screenW + tw) / 55));
+  doc.extraCss +=
+    `.mq{animation:mq ${period}s linear infinite}` +
+    `@keyframes mq{from{transform:translateX(${px + screenW}px)}to{transform:translateX(${Math.round(px - tw)}px)}}`;
+
+  // CRT scanlines over the whole screen.
+  doc.add(
+    `<pattern id="scan" width="1" height="3" patternUnits="userSpaceOnUse"><rect width="1" height="1" fill="#000" opacity="0.22"/></pattern>`,
+    rect(px + 2, py + 2, screenW - 4, screenH - 4, "url(#scan)"),
+  );
+
+  /* --- animated EQ bars ------------------------------------------------- */
+  const eq = well(doc, {
+    x: px + screenW + 10,
+    y: py,
+    w: inner.cx + inner.cw - pad - (px + screenW + 10),
+    h: screenH,
+    fill: C.heroShadow,
+  });
+  doc.add(
+    `<linearGradient id="eqg" x1="0" y1="1" x2="0" y2="0">` +
+      `<stop offset="0" stop-color="${C.green}"/><stop offset="0.55" stop-color="${C.amber}"/>` +
+      `<stop offset="1" stop-color="${C.red}"/></linearGradient>`,
+  );
+  const barW = 9;
+  const barGap = 4;
+  const bx0 = eq.cx + 8;
+  const bTop = eq.cy + 6;
+  const bH = eq.ch - 12;
+  const bars = Math.floor((eq.cw - 16 + barGap) / (barW + barGap));
+  for (let i = 0; i < bars; i++) {
+    const delay = ((i * 137) % 90) / 100;
+    const dur = (65 + ((i * 53) % 55)) / 100;
+    doc.add(
+      `<rect class="eq" x="${bx0 + i * (barW + barGap)}" y="${bTop}" width="${barW}" height="${bH}" ` +
+        `fill="url(#eqg)" style="animation-duration:${dur}s;animation-delay:-${delay}s"/>`,
+    );
+  }
+  doc.extraCss +=
+    `.eq{transform-box:fill-box;transform-origin:50% 100%;animation:eq 1s ease-in-out infinite alternate}` +
+    `@keyframes eq{from{transform:scaleY(0.12)}to{transform:scaleY(1)}}`;
+  doc.add(rect(eq.cx, eq.cy, eq.cw, eq.ch, "url(#scan)"));
+
+  /* --- transport controls ----------------------------------------------- */
+  const rowY = py + screenH + 8;
+  let bx = px;
+  for (const glyph of ["◄◄", "►", "■", "►►"]) {
+    bx += chip(doc, { x: bx, y: rowY, text: glyph, size: 15, font: "vt", h: 24, padX: 10 }) + 6;
+  }
+  bx += 8;
+  doc.add(doc.text("px6", "VOL", { x: bx, y: midline("px6", 11, rowY, 24), size: 11, fill: C.muted }));
+  bx += measure("px6", "VOL", 11) + 8;
+  const trackW = 110;
+  doc.add(
+    bevel(bx, rowY + 9, trackW, 7, { raised: false, fill: C.inset }),
+    bevel(bx + trackW * 0.7 - 5, rowY + 2, 10, 20, { raised: true, fill: C.face }),
+  );
+  doc.add(
+    doc.text("vt", "STEREO · 44.1kHz · LOOP ∞", {
+      x: inner.cx + inner.cw - pad,
+      y: midline("vt", 16, rowY, 24),
+      size: 16,
+      fill: C.muted,
       anchor: "end",
     }),
   );

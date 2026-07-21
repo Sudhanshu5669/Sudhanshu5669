@@ -69,6 +69,21 @@ export const CONFIG = {
 
   dsaBlurb: "🧩 Arrays, trees, graphs, DP, tries — ask me anything. I live and breathe DSA.",
 
+  /**
+   * Featured project rows. Leave empty to auto-pick your top-starred repos,
+   * or pin specific ones by name: ["my-repo", "another-repo"].
+   */
+  featuredRepos: [],
+  maxProjects: 4,
+
+  /** The SYNTHXX.AMP player panel. */
+  music: {
+    app: "SYNTHXX.AMP",
+    status: "► NOW STREAMING ON YOUTUBE",
+    track: "synthxx — synthwave · lofi · game OSTs · new drops every week",
+    url: "https://www.youtube.com/c/synthxx",
+  },
+
   /** Order matters: these render as the connect chips, left to right. */
   connect: [
     { icon: "𝕏", label: "@synthxxmusic", url: "https://twitter.com/synthxxmusic" },

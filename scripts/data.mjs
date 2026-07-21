@@ -29,6 +29,10 @@ query($login:String!){
                  orderBy:{field:STARGAZERS, direction:DESC}){
       totalCount
       nodes{
+        name
+        description
+        url
+        pushedAt
         stargazerCount
         primaryLanguage{ name }
         languages(first:12, orderBy:{field:SIZE, direction:DESC}){
@@ -39,6 +43,10 @@ query($login:String!){
     contributionsCollection{
       totalCommitContributions
       restrictedContributionsCount
+      contributionCalendar{
+        totalContributions
+        weeks{ contributionDays{ date contributionCount } }
+      }
     }
   }
 }`;
@@ -77,6 +85,8 @@ async function fetchGitHub() {
     .slice(0, 4)
     .map(([name, size]) => ({ name, pct: Math.round((size / total) * 100) }));
 
+  const cal = u.contributionsCollection.contributionCalendar;
+
   return {
     followers: u.followers.totalCount,
     prs: u.pullRequests.totalCount,
@@ -87,7 +97,39 @@ async function fetchGitHub() {
       u.contributionsCollection.totalCommitContributions +
       u.contributionsCollection.restrictedContributionsCount,
     languages,
+    topRepos: pickFeatured(
+      repos.map((r) => ({
+        name: r.name,
+        description: r.description,
+        url: r.url,
+        stars: r.stargazerCount,
+        language: r.primaryLanguage?.name ?? null,
+        pushedAt: r.pushedAt,
+      })),
+    ),
+    calendar: {
+      total: cal.totalContributions,
+      weeks: cal.weeks.map((w) => ({
+        start: w.contributionDays[0]?.date,
+        days: w.contributionDays.map((d) => d.contributionCount),
+      })),
+    },
   };
+}
+
+/** Pin repos named in CONFIG.featuredRepos, else keep the top-starred ones. */
+function pickFeatured(repos) {
+  const own = repos.filter((r) => r.name.toLowerCase() !== CONFIG.github.toLowerCase());
+  if (CONFIG.featuredRepos?.length) {
+    const byName = new Map(own.map((r) => [r.name.toLowerCase(), r]));
+    const pinned = CONFIG.featuredRepos
+      .map((n) => byName.get(n.toLowerCase()))
+      .filter(Boolean);
+    if (pinned.length) return pinned.slice(0, CONFIG.maxProjects);
+  }
+  return own
+    .sort((a, b) => b.stars - a.stars || new Date(b.pushedAt) - new Date(a.pushedAt))
+    .slice(0, CONFIG.maxProjects);
 }
 
 /**
@@ -127,6 +169,17 @@ async function fetchGitHubREST() {
       .sort((a, b) => b[1] - a[1])
       .slice(0, 4)
       .map(([name, size]) => ({ name, pct: Math.round((size / total) * 100) })),
+    topRepos: pickFeatured(
+      own.map((r) => ({
+        name: r.name,
+        description: r.description,
+        url: r.html_url,
+        stars: r.stargazers_count,
+        language: r.language,
+        pushedAt: r.pushed_at,
+      })),
+    ),
+    calendar: null, // the REST API has no contribution calendar; CI fills it in
     partial: true,
   };
 }
@@ -203,6 +256,16 @@ export function overallGrade({ commits, stars, prs, followers, repos }) {
 export const compact = (num) =>
   num >= 1000 ? `${(num / 1000).toFixed(num >= 10000 ? 0 : 1)}k` : String(num);
 
+/** "today" / "3d" / "2mo" / "1y" — how long ago `iso` was. */
+export function ago(iso, now = new Date()) {
+  if (!iso) return "";
+  const days = Math.floor((now - new Date(iso)) / 86_400_000);
+  if (days <= 0) return "today";
+  if (days < 30) return `${days}d ago`;
+  if (days < 365) return `${Math.floor(days / 30)}mo ago`;
+  return `${Math.floor(days / 365)}y ago`;
+}
+
 /* --------------------------------------------------------------------- main */
 
 export async function collect() {
@@ -223,6 +286,8 @@ export async function collect() {
       { name: "TypeScript", pct: 18 },
       { name: "C++", pct: 12 },
     ],
+    topRepos: [],
+    calendar: null,
   });
 
   const leetcode = await safe("LeetCode API", fetchLeetCode, {

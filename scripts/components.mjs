@@ -124,6 +124,14 @@ export function meterRow(doc, { x, y, w, label, pct, value, color, labelW = 78, 
   );
 }
 
+/** Shortens `text` with an ellipsis so it fits `maxWidth`. */
+export function truncate(fontKey, text, size, maxWidth) {
+  let s = String(text);
+  if (measure(fontKey, s, size) <= maxWidth) return s;
+  while (s.length && measure(fontKey, s + "…", size) > maxWidth) s = s.slice(0, -1);
+  return s.trimEnd() + "…";
+}
+
 /** Word-wraps `text` to `maxWidth`, returning an array of lines. */
 export function wrap(fontKey, text, size, maxWidth) {
   const words = String(text).split(/\s+/);

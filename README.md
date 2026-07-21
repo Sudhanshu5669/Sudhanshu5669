@@ -1,6 +1,19 @@
 <div align="center">
 
-<img src="assets/card.svg" width="100%" alt="SUDHANSHU — DEVELOPER · CREATOR · EXPLORER"/>
+<a href="https://github.com/sudhanshu5669"><img src="assets/hero.svg" width="100%" alt="SUDHANSHU — DEVELOPER · CREATOR · EXPLORER"/></a>
+<a href="https://github.com/sudhanshu5669"><img src="assets/about.svg" width="49.9%" alt="About me"/></a><a href="https://github.com/sudhanshu5669/sudhanshu5669"><img src="assets/status.svg" width="49.9%" alt="What I'm up to"/></a>
+<a href="https://github.com/sudhanshu5669?tab=repositories"><img src="assets/stack.svg" width="100%" alt="Tech stack and tools"/></a>
+<a href="https://github.com/sudhanshu5669"><img src="assets/contributions.svg" width="100%" alt="Contribution heatmap"/></a>
+<a href="https://github.com/sudhanshu5669?tab=repositories"><img src="assets/projects.svg" width="100%" alt="Featured projects"/></a>
+<a href="https://github.com/Sudhanshu5669/Windows-styled-Portfolio"><img src="assets/project-windows-styled-portfolio.svg" width="100%" alt="Windows-styled-Portfolio"/></a>
+<a href="https://github.com/Sudhanshu5669/The-Wanderer-s-Archive"><img src="assets/project-the-wanderer-s-archive.svg" width="100%" alt="The-Wanderer-s-Archive — A Wanderer's Archive, a proof of a world that exists in my mind. The projection of my inner art."/></a>
+<a href="https://github.com/Sudhanshu5669/K-Voter-SAAS"><img src="assets/project-k-voter-saas.svg" width="100%" alt="K-Voter-SAAS"/></a>
+<a href="https://github.com/Sudhanshu5669/Wallpaper-Overlay"><img src="assets/project-wallpaper-overlay.svg" width="100%" alt="Wallpaper-Overlay — A small swift program that will overlay over your company wallpaper to save you from that boring screen."/></a>
+<a href="https://github.com/sudhanshu5669"><img src="assets/gh-stats.svg" width="49.9%" alt="GitHub stats and top languages"/></a><a href="https://leetcode.com/sudhanshu_5669/"><img src="assets/leetcode.svg" width="49.9%" alt="LeetCode — 163 solved"/></a>
+<a href="https://github.com/sudhanshu5669"><img src="assets/trophies.svg" width="49.9%" alt="Trophies"/></a><a href="mailto:bhartiyasudhanshu5669@gmail.com"><img src="assets/connect.svg" width="49.9%" alt="Let's connect"/></a>
+<a href="https://www.youtube.com/c/synthxx"><img src="assets/player.svg" width="100%" alt="SYNTHXX.AMP — synthxx — synthwave · lofi · game OSTs · new drops every week"/></a>
+<a href="https://github.com/sudhanshu5669/sudhanshu5669"><img src="assets/quote.svg" width="49.9%" alt="&quot;The best error message is the one that never shows up.&quot;"/></a><a href="https://github.com/sudhanshu5669/sudhanshu5669"><img src="assets/notify.svg" width="49.9%" alt="Notifications"/></a>
+<a href="https://github.com/sudhanshu5669/sudhanshu5669"><img src="assets/statusbar.svg" width="100%" alt="RETRO OS · README EDITION"/></a>
 
 <a href="https://twitter.com/synthxxmusic"><img src="assets/link-synthxxmusic.svg" height="34" alt="@synthxxmusic"/></a><a href="https://www.youtube.com/c/synthxx"><img src="assets/link-youtube-synthxx.svg" height="34" alt="YouTube synthxx"/></a><a href="https://www.leetcode.com/sudhanshu_5669"><img src="assets/link-leetcode.svg" height="34" alt="LeetCode"/></a><a href="mailto:bhartiyasudhanshu5669@gmail.com"><img src="assets/link-email.svg" height="34" alt="Email"/></a>
 
@@ -9,6 +22,8 @@
 <!--
   This README is generated. Do not edit it by hand.
   Edit scripts/config.mjs, then run:  npm run build
+  Every section above is its own SVG slice wrapped in a link, so clicking
+  a panel opens the matching page instead of the raw image file.
   The GitHub Action in .github/workflows/readme.yml refreshes the
   live numbers every day.
 -->
