@@ -9,7 +9,7 @@
 <a href="https://github.com/Sudhanshu5669/Rate-Debate"><img src="assets/project-rate-debate.svg" width="100%" alt="Rate-Debate"/></a>
 <a href="https://github.com/Sudhanshu5669/Bug-Arena"><img src="assets/project-bug-arena.svg" width="100%" alt="Bug-Arena"/></a>
 <a href="https://github.com/Sudhanshu5669/The-Wanderer-s-Archive"><img src="assets/project-the-wanderer-s-archive.svg" width="100%" alt="The-Wanderer-s-Archive — A Wanderer's Archive, a proof of a world that exists in my mind. The projection of my inner art."/></a>
-<a href="https://github.com/sudhanshu5669"><img src="assets/gh-stats.svg" width="49.9%" alt="GitHub stats and top languages"/></a><a href="https://leetcode.com/sudhanshu_5669/"><img src="assets/leetcode.svg" width="49.9%" alt="LeetCode — 169 solved"/></a>
+<a href="https://github.com/sudhanshu5669"><img src="assets/gh-stats.svg" width="49.9%" alt="GitHub stats and top languages"/></a><a href="https://leetcode.com/sudhanshu_5669/"><img src="assets/leetcode.svg" width="49.9%" alt="LeetCode — 170 solved"/></a>
 <a href="https://github.com/sudhanshu5669"><img src="assets/trophies.svg" width="49.9%" alt="Trophies"/></a><a href="mailto:bhartiyasudhanshu5669@gmail.com"><img src="assets/connect.svg" width="49.9%" alt="Let's connect"/></a>
 <a href="https://www.youtube.com/c/synthxx"><img src="assets/player.svg" width="100%" alt="SYNTHXX.AMP — synthxx — synthwave · lofi · game OSTs · new drops every week"/></a>
 <a href="https://github.com/sudhanshu5669/sudhanshu5669"><img src="assets/quote.svg" width="49.9%" alt="&quot;The best error message is the one that never shows up.&quot;"/></a><a href="https://github.com/sudhanshu5669/sudhanshu5669"><img src="assets/notify.svg" width="49.9%" alt="Notifications"/></a>
