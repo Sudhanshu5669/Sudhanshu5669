@@ -7,8 +7,8 @@
 <a href="https://github.com/sudhanshu5669?tab=repositories"><img src="assets/projects.svg" width="100%" alt="Featured projects"/></a>
 <a href="https://github.com/Sudhanshu5669/Html5-Gamedev-Skill"><img src="assets/project-html5-gamedev-skill.svg" width="100%" alt="Html5-Gamedev-Skill — A Claude code skill to help you make html5 games with minimal effort"/></a>
 <a href="https://github.com/Sudhanshu5669/Windows-styled-Portfolio"><img src="assets/project-windows-styled-portfolio.svg" width="100%" alt="Windows-styled-Portfolio"/></a>
+<a href="https://github.com/Sudhanshu5669/Cinema-Tycoon"><img src="assets/project-cinema-tycoon.svg" width="100%" alt="Cinema-Tycoon"/></a>
 <a href="https://github.com/Sudhanshu5669/Stickman-Total-Destruction"><img src="assets/project-stickman-total-destruction.svg" width="100%" alt="Stickman-Total-Destruction — Crazygames game of mine with stickman total destruction"/></a>
-<a href="https://github.com/Sudhanshu5669/neetcode-submissions"><img src="assets/project-neetcode-submissions.svg" width="100%" alt="neetcode-submissions — My NeetCode.io problem submissions"/></a>
 <a href="https://github.com/sudhanshu5669"><img src="assets/gh-stats.svg" width="49.9%" alt="GitHub stats and top languages"/></a><a href="https://leetcode.com/sudhanshu_5669/"><img src="assets/leetcode.svg" width="49.9%" alt="LeetCode — 175 solved"/></a>
 <a href="https://github.com/sudhanshu5669"><img src="assets/trophies.svg" width="49.9%" alt="Trophies"/></a><a href="mailto:bhartiyasudhanshu5669@gmail.com"><img src="assets/connect.svg" width="49.9%" alt="Let's connect"/></a>
 <a href="https://www.youtube.com/c/synthxx"><img src="assets/player.svg" width="100%" alt="SYNTHXX.AMP — synthxx — synthwave · lofi · game OSTs · new drops every week"/></a>
