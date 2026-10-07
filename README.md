@@ -9,7 +9,7 @@
 <a href="https://github.com/Sudhanshu5669/Windows-styled-Portfolio"><img src="assets/project-windows-styled-portfolio.svg" width="100%" alt="Windows-styled-Portfolio"/></a>
 <a href="https://github.com/Sudhanshu5669/UI-Mockups"><img src="assets/project-ui-mockups.svg" width="100%" alt="UI-Mockups — repo fro UI mockups"/></a>
 <a href="https://github.com/Sudhanshu5669/Cinema-Tycoon-2"><img src="assets/project-cinema-tycoon-2.svg" width="100%" alt="Cinema-Tycoon-2"/></a>
-<a href="https://github.com/sudhanshu5669"><img src="assets/gh-stats.svg" width="49.9%" alt="GitHub stats and top languages"/></a><a href="https://leetcode.com/sudhanshu_5669/"><img src="assets/leetcode.svg" width="49.9%" alt="LeetCode — 177 solved"/></a>
+<a href="https://github.com/sudhanshu5669"><img src="assets/gh-stats.svg" width="49.9%" alt="GitHub stats and top languages"/></a><a href="https://leetcode.com/sudhanshu_5669/"><img src="assets/leetcode.svg" width="49.9%" alt="LeetCode — 178 solved"/></a>
 <a href="https://github.com/sudhanshu5669"><img src="assets/trophies.svg" width="49.9%" alt="Trophies"/></a><a href="mailto:bhartiyasudhanshu5669@gmail.com"><img src="assets/connect.svg" width="49.9%" alt="Let's connect"/></a>
 <a href="https://www.youtube.com/c/synthxx"><img src="assets/player.svg" width="100%" alt="SYNTHXX.AMP — synthxx — synthwave · lofi · game OSTs · new drops every week"/></a>
 <a href="https://github.com/sudhanshu5669/sudhanshu5669"><img src="assets/quote.svg" width="49.9%" alt="&quot;The best error message is the one that never shows up.&quot;"/></a><a href="https://github.com/sudhanshu5669/sudhanshu5669"><img src="assets/notify.svg" width="49.9%" alt="Notifications"/></a>
